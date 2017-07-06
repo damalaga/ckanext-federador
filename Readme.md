@@ -61,7 +61,7 @@ ckanext.dcat.catalog_endpoint=/catalog/{_format}
 Añade la periodicidad con la que se actualiza el fichero (opcional en la federación).
 Para que el federador rellene el dct accrualPeriodicity debemos añadir un registro en "Campo Personalizado" con la clave "Frecuencia" y alguno de los siguientes valores:
 anual, semestral, trimestral, bimensual, mensual, quincenal, semanal, diaria, X minuto, Y segundo (en estos dos últimos casos, los valores X e Y se escribirán en la etiqueta time).
-Si fuese necesario incorporar un nuevo valor, tendrá que añadirse en _ds_frequency(freq) del fuente [plugin.py](https://github.com/damalaga/ckanext-federador/ckanext/federador/plugin.py)
+Si fuese necesario incorporar un nuevo valor, tendrá que añadirse en _ds_frequency(freq) del fuente ckanext-federador/ckanext/federador/plugin.py/plugin.py
 
 ### Campo relation
 Añade URLs relacionadas con el conjunto de datos en cuestión (opcional en la federación).
@@ -69,7 +69,7 @@ Para que el federador rellene el dct relation debemos añadir un registro en "Ca
 "Relacionado 1", "Relacionado 2", .... de este modo aparecerán todos los relacionados en la federación.
 
 ### Fichero malaga.rdf
-El fichero que genera el rdf final es [malaga.rdf](https://github.com/damalaga/ckanext-federador/ckanext/federador/templates/catalog/malaga.rdf)
+El fichero rdf que se genera usa como plantilla el fichero malaga.rdf que se encuentra en ckanext-federador/ckanext/federador/templates/catalog/malaga.rdf.
 
 
 ## PROCESO DE FEDERACIÓN
@@ -78,7 +78,7 @@ El fichero RDF se genera llamando a la siguiente URL http://servidor/catalog/mal
 
 Por ejemplo desde línea de comandos de Linux: wget http://servidor/catalog/malaga.rdf -O fed-malaga.rdf
 
-##Licencia:
+## Licencia:
 
 El código de esta aplicación puede ser reutilizado, modificado y adaptado a las necesidades de los distintos portales de forma libre. Si utilizas nuestro código o parte de él, por favor, incluye nuestro logo en el cabecero o pie de página a modo de reconocimiento a Datos abiertos Málaga. Gracias! 
 
