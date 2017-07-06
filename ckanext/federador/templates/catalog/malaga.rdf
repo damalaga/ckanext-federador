@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:py="http://genshi.edgewall.org/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:time="http://www.w3.org/2006/time#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns:tema="http://datos.gob.es/kos/sector-publico/sector/"
+>
+<dcat:Catalog rdf:about="http://datosabiertos.malaga.eu/about">
+<dct:identifier>{{ g.site_url }}</dct:identifier>
+<dct:title>{{ g.site_description }}</dct:title>
+<dct:description>{{ g.site_description }}</dct:description>
+<dct:publisher rdf:resource="{{h.fed_value('ckanext.federador.publisher')}}"/>
+<dct:extent>
+<dct:SizeOrDuration>
+{% set _size= 10 %}
+<rdf:value rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">{{_size}}</rdf:value>
+<rdfs:label>{{_size}} bytes</rdfs:label>
+</dct:SizeOrDuration>
+</dct:extent>
+<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">{{h.fed_value('ckanext.federador.datetime_pub')}}</dct:issued>
+<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">{{ h.fed_datetime('') }}</dct:modified>
+<dc:language>es</dc:language>
+<dct:spatial rdf:resource="{{h.fed_value('ckanext.federador.spatial_res')}}"/>
+<dcat:themeTaxonomy rdf:resource="{{h.fed_value('ckanext.federador.theme_tax')}}"/>
+<foaf:homepage rdf:resource="{{ g.site_url }}"/>
+<dct:license rdf:resource="{{h.fed_value('ckanext.federador.license_res')}}"/>
+{% for _ds_list in h.fed_ds_list() %}{%set _ds=h.fed_resources_list(_ds_list)%}{%if _ds['private'] == False%}<dcat:dataset>
+	{%set _extra = 'vacio'%}
+			<dcat:Dataset rdf:about="{{h.url_for(controller='package',action='read',id=_ds['name'], qualified=True)}}">
+				<dct:identifier>{{ h.url_for(controller='package',action='read',id=_ds['name'], qualified=True)}}</dct:identifier>
+				<dct:title>{{_ds['title']}}</dct:title>
+				<dct:private>{{_ds['private']}}</dct:private>
+				<dct:description xml:lang="es">{{_ds['notes'].replace('\n','').replace('\r',' ')}}</dct:description>{%for _dato in _ds['groups']%}  
+					<dcat:theme rdf:resource="http://datos.gob.es/kos/sector-publico/sector/{{ _dato['name'] }}"/>{%for _tag_dict in _ds['tags']%}
+						<dcat:keyword>{{_tag_dict['name']}}</dcat:keyword>{%endfor%}{% if _ds['extras'] != [] %}{%for _ex in _ds['extras']%}{%if _ex['key']=='Frecuencia'%}
+							<dct:accrualPeriodicity>
+								<dct:Frequency>
+									<rdfs:label>Frecuencia {{_ex['value']}}</rdfs:label>
+									<rdf:value>
+										<time:DurationDescription>{%set _frec=h.fed_frequency(_ex['value'])%})
+											<rdfs:label>{{_ex['value']}}</rdfs:label>
+											<time:{{_frec['frec']}} rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{{_frec['times']}}</time:{{_frec['frec']}}>
+										</time:DurationDescription>
+									</rdf:value>
+								</dct:Frequency>
+							</dct:accrualPeriodicity>						
+						{%endif%}{%endfor%}{%endif%}
+					<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">{{_ds['metadata_created'][:19]}}</dct:issued>
+					<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">{{_ds['metadata_modified'][:19]}}</dct:modified>
+					<dc:language>es</dc:language>
+					<dct:publisher rdf:resource="{{h.fed_value('ckanext.federador.publisher')}}"/>
+					<dct:license>{{_ds['license_url']}}</dct:license>
+					<dct:spatial rdf:resource="{{h.fed_value('ckanext.federador.spatial_res')}}"/>
+					<dct:valid rdf:datatype="http://www.w3.org/2001/XMLSchema#date"></dct:valid>{%for  _rsc_dict in _ds['resources']%}
+						<dcat:distribution>
+						<dcat:Distribution>
+							<dct:identifier>{{ h.url_for(controller='package',action='read',id=_ds['name'], qualified=True)}}/resource/{{_rsc_dict['id']}}</dct:identifier>
+							<dct:title>{{_rsc_dict['name']}}</dct:title>
+							<dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">{{_rsc_dict['url']}}</dcat:accessURL>
+							<dct:format>{% set typefiles=h.fed_filetype(_rsc_dict['format']) %}
+								<dct:IMT>
+									<rdf:value>{{typefiles['mimetype']}}</rdf:value>
+									<rdfs:label>{{typefiles['typefile']}}</rdfs:label>
+								</dct:IMT>
+							</dct:format>
+							<dcat:byteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">{% if _rsc_dict['size']== None %}{% set _size_res=0 %}{% else%}{% set _size_res=_rsc_dict['size']%}{%endif%}
+								{{_size_res}}</dcat:byteSize>	
+ 						</dcat:Distribution>
+						</dcat:distribution>{% endfor %}{% endfor %}
+			</dcat:Dataset>
+			</dcat:dataset>{%endif%}{% endfor %}
+</dcat:Catalog>
+</rdf:RDF>
