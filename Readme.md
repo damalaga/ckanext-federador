@@ -2,11 +2,13 @@
 ckanext-federador
 =================
 Esta extensión federa el catálogo de datos de una plataforma CKAN en datos.gob.es
+
 Esta extensión ha sido desarrollada por el [Centro Municipal de Informática](http://cemi.malaga.eu) para ser usada junto con el [Portal de Datos Abiertos del Ayuntamiento de Málaga](http://datosabiertos.malaga.eu) 
 
 ¿Qué es la federación?
 ======================
 Es el término que se emplea para describir la agregación de catálogos con el portal de datos abiertos del Gobierno [datos.gob.es](http://datos.gob.es), que es el portal de carácter nacional que organiza y gestiona el Catálogo de Información Pública del sector público. Asimismo, desde este portal se proporciona información general, materiales formativos y noticias de actualidad sobre la reutilización de la información. Esto quiere decir que, desde este momento, todo el catálogo de datos abiertos de la entidad federada está disponible desde el portal de datos abiertos del Gobierno, de forma que aumenta las posibilidades de reutilización de la información publicada.
+
 Con este módulo se consigue la adaptación a los estándares marcados en la Norma Técnica de Interoperabilidad, que establece las condiciones comunes sobre selección, identificación, descripción, formato, condiciones de uso y puesta a disposición de los documentos y recursos de información elaborados o custodiados por el sector público, relativos a numerosos ámbitos de interés como la información social, económica, jurídica, turística, sobre empresas, educación, etc.
 
 datosabiertos.malaga.eu
