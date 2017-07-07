@@ -31,7 +31,7 @@ Partimos de una plataforma CKAN 2.6.0 (no está probada en versiones anteriores)
 * Desplegarla: `python setup.py develop`
 
 ### Configuración de la extensión
-#Añadir en el fichero .ini estos parámetros y, a continuacion, reiniciar apache2:
+Añadir en el fichero .ini estos parámetros y, a continuacion, reiniciar apache2:
 <pre>
 <code>
 #Añadimos la extension en ckan.plugins
