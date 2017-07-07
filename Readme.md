@@ -26,18 +26,15 @@ Partimos de una plataforma CKAN 2.6.0 (no está probada en versiones anteriores)
 ### Descarga de la extensión
 
 * Conectarse a la máquina de CKAN con el usuario de ckan.
-* Ir al directorio de instalación de la extensión (en nuestro caso):
-<p>cd ckan/lib/default/src</p>
-* Clonar la extensión
-<p>git clone https://github.com/damalaga/ckanext-federador</p>
-* Desplegarla
-<p>python setup.py develop</p>
+* Ir al directorio de instalación de la extensión (en nuestro caso): `cd ckan/lib/default/src`
+* Clonar la extensión: `git clone https://github.com/damalaga/ckanext-federador`
+* Desplegarla: `python setup.py develop`
 
 ### Configuración de la extensión
-Añadir en el fichero .ini estos parámetros y, a continuacion, reiniciar apache2:
+#Añadir en el fichero .ini estos parámetros y, a continuacion, reiniciar apache2:
 <pre>
 <code>
-Añadimos la extension en ckan.plugins
+#Añadimos la extension en ckan.plugins
 ckan.plugins = .... federador
 
 ckanext.federador.datetime_pub = #incluir la fecha de alta en datos.gob.es con formato YYYY-MM-DDTHH:MI:SS
@@ -50,10 +47,8 @@ ckanext.federador.license_res = #URL de la licencia
 </pre>
 
 <b>NOTA</b>: ckanext-dcat requiere este parámetro en el fichero .ini:
-1- los plugins en dcat:
-ckan.plugins = .... dcat dcat_rdf_harvester
-2- la configuración del catálogo (añadir esta línea en la configuración, tal cual aparece) 
-ckanext.dcat.catalog_endpoint=/catalog/{_format}
+* los plugins en dcat: `ckan.plugins = .... dcat dcat_rdf_harvester`
+* la configuración del catálogo (añadir esta línea en la configuración, tal cual aparece) `ckanext.dcat.catalog_endpoint=/catalog/{_format}`
 
 ## Campos opcionales en la federación
 
