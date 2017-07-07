@@ -1,10 +1,13 @@
-
 ![Logo datos abiertos Málaga](https://github.com/damalaga/ckanext-malaga/blob/master/ckanext/malaga/public/images/logoportaldatosabiertos.png)
 ckanext-federador
 =================
 Esta extensión federa el catálogo de datos de una plataforma CKAN en datos.gob.es
-
 Esta extensión ha sido desarrollada por el [Centro Municipal de Informática](http://cemi.malaga.eu) para ser usada junto con el [Portal de Datos Abiertos del Ayuntamiento de Málaga](http://datosabiertos.malaga.eu) 
+
+¿Qué es la federación?
+======================
+Es el término que se emplea para describir la agregación de catálogos con el portal de datos abiertos del Gobierno (datos.gob.es), que es el portal de carácter nacional que organiza y gestiona el Catálogo de Información Pública del sector público. Asimismo, desde este portal se proporciona información general, materiales formativos y noticias de actualidad sobre la reutilización de la información. Esto quiere decir que, desde este momento, todo el catálogo de datos abiertos de la entidad federada está disponible desde el portal de datos abiertos del Gobierno, de forma que aumenta las posibilidades de reutilización de la información publicada.
+Con este módulo se consigue la adaptación a los estándares marcados en la Norma Técnica de Interoperabilidad, que establece las condiciones comunes sobre selección, identificación, descripción, formato, condiciones de uso y puesta a disposición de los documentos y recursos de información elaborados o custodiados por el sector público, relativos a numerosos ámbitos de interés como la información social, económica, jurídica, turística, sobre empresas, educación, etc.
 
 datosabiertos.malaga.eu
 =======================
@@ -16,7 +19,7 @@ El [Portal de Datos Abiertos del Ayuntamiento de Málaga](http://datosabiertos.m
 <b>IMPORTANTE:</b>
 Esta extensión funciona para CKAN 2.6.0 y superiores, no habiendo sido probadas en versiones anteriores.
 
-## Instalación y configuración de la federación de datos
+## Instalación y configuración de la federación de datos.
 
 Partimos de una plataforma CKAN 2.6.0 (no está probada en versiones anteriores)
 
@@ -50,15 +53,17 @@ ckanext.federador.license_res = #URL de la licencia
 * los plugins en dcat: `ckan.plugins = .... dcat dcat_rdf_harvester`
 * la configuración del catálogo (añadir esta línea en la configuración, tal cual aparece) `ckanext.dcat.catalog_endpoint=/catalog/{_format}`
 
-## Campos opcionales en la federación
+## Funcionalidades implementadas:
+* Metadato accrualPeriodicity
+* Metadato relation
 
-### Campo accrualPeriodicity
+### accrualPeriodicity
 Añade la periodicidad con la que se actualiza el fichero (opcional en la federación).
 Para que el federador rellene el dct accrualPeriodicity debemos añadir un registro en "Campo Personalizado" con la clave "Frecuencia" y alguno de los siguientes valores:
 anual, semestral, trimestral, bimensual, mensual, quincenal, semanal, diaria, X minuto, Y segundo (en estos dos últimos casos, los valores X e Y se escribirán en la etiqueta time).
 Si fuese necesario incorporar un nuevo valor, tendrá que añadirse en _ds_frequency(freq) del fuente ckanext-federador/ckanext/federador/plugin.py/plugin.py
 
-### Campo relation
+### relation
 Añade URLs relacionadas con el conjunto de datos en cuestión (opcional en la federación).
 Para que el federador rellene el dct relation debemos añadir un registro en "Campo Personalizado" con la clave "Relacionado" y su valor correspondiente, en caso de tener más de un relacionado lo enumeraremos:
 "Relacionado 1", "Relacionado 2", .... de este modo aparecerán todos los relacionados en la federación.
@@ -67,7 +72,7 @@ Para que el federador rellene el dct relation debemos añadir un registro en "Ca
 El fichero rdf que se genera usa como plantilla el fichero malaga.rdf que se encuentra en ckanext-federador/ckanext/federador/templates/catalog/malaga.rdf.
 
 
-## PROCESO DE FEDERACIÓN
+## FEDERACIÓN
 
 El fichero RDF se genera llamando a la siguiente URL http://servidor/catalog/malaga.rdf. El fichero resultante es el que usamos para federarnos en datos.gob.es
 
