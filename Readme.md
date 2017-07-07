@@ -1,4 +1,5 @@
 ![Logo datos abiertos Málaga](https://github.com/damalaga/ckanext-malaga/blob/master/ckanext/malaga/public/images/logoportaldatosabiertos.png)
+
 ckanext-federador
 =================
 Esta extensión federa el catálogo de datos de una plataforma CKAN en datos.gob.es
