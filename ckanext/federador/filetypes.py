@@ -69,4 +69,7 @@ list_filetype={'shp':{'mimetype':'application/x-zipped-shp','typefile':'shp'},
 
 
 def mimetype_extension(filetype):
-	return list_filetype[filetype.lower()]
+        try:
+                return list_filetype[filetype.lower()]
+        except KeyError:
+                print("Key ", filetype,  "does not exist!")
